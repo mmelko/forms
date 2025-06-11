@@ -6,6 +6,8 @@ import { TextAreaField } from '../fields/TextAreaField';
 import { FieldProps } from '../typings';
 import { DisabledField } from '../fields/DisabledField';
 import { BooleanField } from '../fields/BooleanField';
+import { ObjectField } from '../fields/ObjectField/ObjectField';
+import { ArrayField } from '../fields/ArrayField/ArrayField';
 
 type FormComponentFactoryContextValue = (schema: KaotoSchemaDefinition['schema']) => FunctionComponent<FieldProps>;
 
@@ -29,6 +31,10 @@ export const FormComponentFactoryProvider: FunctionComponent<PropsWithChildren> 
         return StringField;
       case 'boolean':
         return BooleanField;
+      case 'object':
+        return ObjectField;
+      case 'array':
+        return ArrayField;
     }
 
     return DisabledField;
