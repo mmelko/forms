@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.4](https://github.com/KaotoIO/forms/compare/@kaoto/forms@0.0.3...@kaoto/forms@0.0.4) (2025-06-18)
+
+**Note:** Version bump only for package @kaoto/forms
+
 ## 0.0.3 (2025-06-18)
 
 **Note:** Version bump only for package @kaoto/forms
