@@ -9,16 +9,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/create-github-app-token@v2
-        id: app-token
-        with:
-          app-id: ${{ vars.KAOTO_RELEASE_APP_ID }}
-          private-key: ${{ secrets.KAOTO_RELEASE_APP_KEY }}
-
       - name: 🛎️ Checkout source code
         uses: actions/checkout@v4
         with:
-          token: ${{ steps.app-token.outputs.token }}
+          token:  ${{ github.token }}
 
       - name: 🧰 Setup Node.js
         uses: actions/setup-node@v4
@@ -37,8 +31,15 @@ jobs:
       - name: 💅 Run eslint
         run: yarn workspaces foreach --verbose --all --topological-dev run lint
 
+      - uses: actions/create-github-app-token@v2
+        if: github.repository == 'KaotoIO/forms'
+        id: app-token
+        with:
+          app-id: ${{ vars.KAOTO_RELEASE_APP_ID }}
+          private-key: ${{ secrets.KAOTO_RELEASE_APP_KEY }}
+      
       - name: 📤 Upload artifacts for publish (only on main)
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main' && github.repository == 'KaotoIO/forms'
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
           NODE_AUTH_TOKEN: ${{ secrets.KAOTO_NPM_TOKEN }}
